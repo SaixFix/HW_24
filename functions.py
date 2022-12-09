@@ -10,7 +10,7 @@ def map_query(param: str, data: Iterable[str]):
     return map(lambda x: x.split(' ')[col_number], data)
 
 
-def unique_query(data: Iterable[str]):
+def unique_query(data: Iterable[str], *args, **kwargs):
     return set(data)
 
 

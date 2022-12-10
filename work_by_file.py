@@ -1,3 +1,5 @@
+from typing import Optional, Iterable
+
 from functions import filter_query, map_query, unique_query, sort_query, limit_query
 
 CMD_TO_FUNCTION = {
@@ -8,29 +10,17 @@ CMD_TO_FUNCTION = {
     'limit': limit_query,
 }
 
+
 class WorkByFile:
     def read_file(self, file_name: str):
         with open(file_name) as file:
             for row in file:
                 yield row
 
-    def query(self, cmd, value):
-        gen = self.read_file('./data/apache_logs.txt')
-
-        result = CMD_TO_FUNCTION[cmd](param=value, data=gen)
+    def query(self, cmd, value, data: Optional[Iterable[str]]):
+        if data is None:
+            prepared_data = self.read_file('./data/apache_logs.txt')
+        else:
+            prepared_data = data
+        result = CMD_TO_FUNCTION[cmd](param=value, data=prepared_data)
         return list(result)
-
-        # filtered = list(filter_query(value, gen))
-        # mapped = list(map_query('0', filtered))
-        # unique = list(unique_query(mapped))
-        # sort = sort_query(param='desc', data=unique)
-        # limited = limit_query(param='1', data=sort)
-        # return limited
-
-
-
-
-
-
-
-

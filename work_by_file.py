@@ -1,5 +1,7 @@
 from typing import Optional, Iterable
 
+from werkzeug.routing import ValidationError
+
 from functions import filter_query, map_query, unique_query, sort_query, limit_query
 
 # словарик с фильтрами
@@ -24,6 +26,10 @@ class WorkByFile:
 
     def query(self, cmd, value, data: Optional[Iterable[str]]):
         """применяем заданные фильты к файлу"""
+
+        if cmd not in CMD_TO_FUNCTION.keys():
+            raise ValidationError('cmd contains invalid value')
+
         if data is None:
             prepared_data = self.read_file(self.filename)
         else:

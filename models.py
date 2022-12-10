@@ -4,6 +4,7 @@ VALID_CMD = ('filter', 'map', 'unique', 'sort', 'limit')
 
 
 class Request(Schema):
+    filename = fields.Str()
     cmd = fields.Str(required=True)
     value = fields.Str(required=True)
 

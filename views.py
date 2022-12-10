@@ -1,8 +1,12 @@
+import os
 from flask import Blueprint, Response, request, jsonify
 from marshmallow import ValidationError
 
 from models import BatchRequestParams
 from work_by_file import WorkByFile
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "data")
 
 main_bp = Blueprint('main', __name__)
 
@@ -15,7 +19,10 @@ def perform_query() -> Response:
     except ValidationError as error:
         return jsonify(error.messages), 400
 
-    query_builder = WorkByFile()
+    params = request.json
+
+    query_builder = WorkByFile(params['file']['filename'])
+    print(query_builder.filename)
 
     # итерируемся по принятому jsony и применяем заданные фильтры
     result = None

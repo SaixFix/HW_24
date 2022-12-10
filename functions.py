@@ -20,4 +20,4 @@ def sort_query(param: str, data: Iterable[str]):
 
 def limit_query(param: str, data: Iterable[str]):
     limit = int(param)
-    return data[:limit]
+    return list(data)[:limit]

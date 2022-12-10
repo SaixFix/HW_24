@@ -25,7 +25,7 @@ class WorkByFile:
     def query(self, cmd, value, data: Optional[Iterable[str]]):
         """применяем заданные фильты к файлу"""
         if data is None:
-            prepared_data = self.read_file(f'./data/{self.filename}')
+            prepared_data = self.read_file(self.filename)
         else:
             prepared_data = data
         result = CMD_TO_FUNCTION[cmd](param=value, data=prepared_data)

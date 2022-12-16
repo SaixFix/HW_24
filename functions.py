@@ -1,4 +1,5 @@
 from typing import Iterable
+import re
 
 
 def filter_query(param: str, data):
@@ -21,3 +22,8 @@ def sort_query(param: str, data: Iterable[str]):
 def limit_query(param: str, data: Iterable[str]):
     limit = int(param)
     return list(data)[:limit]
+
+
+def regex_search(param: str, data: Iterable[str]):
+    regex = re.compile(rf"{param}")
+    return regex.findall(data)

@@ -2,7 +2,7 @@ from typing import Optional, Iterable
 
 from werkzeug.routing import ValidationError
 
-from functions import filter_query, map_query, unique_query, sort_query, limit_query
+from functions import filter_query, map_query, unique_query, sort_query, limit_query, regex_search
 
 # словарик с фильтрами
 CMD_TO_FUNCTION = {
@@ -11,6 +11,7 @@ CMD_TO_FUNCTION = {
     'unique': unique_query,
     'sort': sort_query,
     'limit': limit_query,
+    'regex': regex_search,
 }
 
 

@@ -20,7 +20,7 @@ def perform_query() -> Response:
 
     query_builder = WorkByFile(file_path)
 
-    # итерируемся по принятому jsony и применяем заданные фильтры
+    # итерируемся по принятому json и применяем заданные фильтры
     result = None
     for query in params['queries']:
         result = query_builder.query(

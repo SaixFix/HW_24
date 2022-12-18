@@ -35,6 +35,5 @@ class WorkByFile:
             prepared_data = self.read_file(self.filename)
         else:
             prepared_data = data
-            print(prepared_data)
         result = CMD_TO_FUNCTION[cmd](param=value, data=prepared_data)
         return list(result)

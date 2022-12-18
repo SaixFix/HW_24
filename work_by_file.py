@@ -1,11 +1,11 @@
-from typing import Optional, Iterable
+from typing import Optional, Iterable, Generator, Dict
 
 from werkzeug.routing import ValidationError
 
 from functions import filter_query, map_query, unique_query, sort_query, limit_query, regex_search
 
 # словарик с фильтрами
-CMD_TO_FUNCTION = {
+CMD_TO_FUNCTION: Dict = {
     'filter': filter_query,
     'map': map_query,
     'unique': unique_query,
@@ -16,16 +16,16 @@ CMD_TO_FUNCTION = {
 
 
 class WorkByFile:
-    def __init__(self, filename):
+    def __init__(self, filename: str) -> None:
         self.filename = filename
 
-    def read_file(self, file_name: str):
+    def read_file(self, file_name: str) -> Generator:
         """Читаем файл с помощью гернератора"""
         with open(file_name) as file:
             for row in file:
                 yield row
 
-    def query(self, cmd, value, data: Optional[Iterable[str]]):
+    def query(self, cmd: str, value: str, data: Optional[Generator]) -> Iterable[str]:
         """применяем заданные фильты к файлу"""
 
         if cmd not in CMD_TO_FUNCTION.keys():
@@ -35,5 +35,6 @@ class WorkByFile:
             prepared_data = self.read_file(self.filename)
         else:
             prepared_data = data
+            print(prepared_data)
         result = CMD_TO_FUNCTION[cmd](param=value, data=prepared_data)
         return list(result)

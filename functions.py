@@ -25,5 +25,5 @@ def limit_query(param: str, data: Iterable[str]) -> Iterable[str]:
 
 
 def regex_search(param: str, data: Iterable[str]) -> Iterable[str]:
-    print(param)
+    regex = re.compile(rf"{param}")
     return regex.findall(''.join(data))
